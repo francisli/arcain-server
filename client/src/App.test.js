@@ -17,6 +17,6 @@ export const TestApp = (
 
 test('renders home', () => {
   render(TestApp);
-  const linkElement = screen.getByText(/Full Stack Starter/i);
+  const linkElement = screen.getByText(/Arcain Design/i);
   expect(linkElement).toBeInTheDocument();
 });

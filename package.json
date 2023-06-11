@@ -1,6 +1,6 @@
 {
-  "name": "full-stack-starter",
-  "version": "4.1.3",
+  "name": "arcain",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "client",
