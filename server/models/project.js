@@ -3,7 +3,9 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Project extends Model {
-    static associate(models) {}
+    static associate(models) {
+      Project.hasMany(models.Photo);
+    }
 
     toJSON() {
       const json = _.pick(this.get(), ['id', 'name', 'link', 'desc', 'isVisible', 'position']);

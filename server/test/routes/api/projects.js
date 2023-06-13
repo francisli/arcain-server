@@ -21,9 +21,9 @@ describe('/api/projects', () => {
         const response = await testSession.get('/api/projects').set('Accept', 'application/json').expect(StatusCodes.OK);
         assert.deepStrictEqual(response.body?.length, 2);
 
-        const users = response.body;
-        assert.deepStrictEqual(users[0].name, 'Project 3');
-        assert.deepStrictEqual(users[1].name, 'Project 1');
+        const records = response.body;
+        assert.deepStrictEqual(records[0].name, 'Project 3');
+        assert.deepStrictEqual(records[1].name, 'Project 1');
       });
     });
 
@@ -97,10 +97,10 @@ describe('/api/projects', () => {
         const response = await testSession.get('/api/projects?showAll=true').set('Accept', 'application/json').expect(StatusCodes.OK);
         assert.deepStrictEqual(response.body?.length, 3);
 
-        const users = response.body;
-        assert.deepStrictEqual(users[0].name, 'Project 3');
-        assert.deepStrictEqual(users[1].name, 'Project 2');
-        assert.deepStrictEqual(users[2].name, 'Project 1');
+        const records = response.body;
+        assert.deepStrictEqual(records[0].name, 'Project 3');
+        assert.deepStrictEqual(records[1].name, 'Project 2');
+        assert.deepStrictEqual(records[2].name, 'Project 1');
       });
     });
 
