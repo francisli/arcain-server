@@ -6,6 +6,7 @@ import { AuthContextProvider } from './AuthContext';
 import { useStaticContext } from './StaticContext';
 import AppRedirects from './AppRedirects';
 import Header from './Header';
+import Footer from './Footer';
 import Home from './Home';
 import Login from './Login';
 import AdminRoutes from './Admin/AdminRoutes';
@@ -38,6 +39,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </AuthContextProvider>
   );
 }

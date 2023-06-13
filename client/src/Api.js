@@ -67,6 +67,20 @@ const Api = {
       return instance.patch(`/api/passwords/${token}`, { password });
     },
   },
+  projects: {
+    index({ showAll }) {
+      return instance.get(`/api/projects`, { params: { showAll } });
+    },
+    create(data) {
+      return instance.post(`/api/projects`, data);
+    },
+    get(id) {
+      return instance.get(`/api/projects/${id}`);
+    },
+    update(id, data) {
+      return instance.patch(`/api/projects/${id}`, data);
+    },
+  },
   users: {
     index() {
       return instance.get(`/api/users`);

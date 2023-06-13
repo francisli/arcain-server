@@ -4,7 +4,7 @@ import { useAuthContext } from './AuthContext';
 export const ADMIN_AUTH_PROTECTED_PATHS = ['/admin/*'];
 export const AUTH_PROTECTED_PATHS = ['/account/*'];
 export const REDIRECTS = [
-  ['/admin', '/admin/users'],
+  ['/admin', '/admin/projects'],
   ['/passwords', '/passwords/forgot'],
 ];
 

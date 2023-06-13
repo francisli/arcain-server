@@ -49,8 +49,8 @@ function AdminUsersList() {
       <Helmet>
         <title>Manage Users - {staticContext?.env?.REACT_APP_SITE_TITLE}</title>
       </Helmet>
-      <main className="users container">
-        <h1>Manage Users</h1>
+      <>
+        <h1 className="display-6">Manage Users</h1>
         <div className="mb-5">
           <Link to="invite" className="btn btn-outline-primary">
             Invite a new User
@@ -58,7 +58,7 @@ function AdminUsersList() {
         </div>
         {invites.length > 0 && (
           <>
-            <h2>Invites</h2>
+            <h2 className="display-6">Invites</h2>
             <div className="table-responsive mb-5">
               <table className="table table-hover">
                 <thead>
@@ -95,7 +95,7 @@ function AdminUsersList() {
             </div>
           </>
         )}
-        <h2>Users</h2>
+        <h2 className="display-6">Users</h2>
         <div className="table-responsive">
           <table className="table table-hover">
             <thead>
@@ -124,7 +124,7 @@ function AdminUsersList() {
             </tbody>
           </table>
         </div>
-      </main>
+      </>
     </>
   );
 }
