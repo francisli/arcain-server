@@ -17,7 +17,7 @@ function ProjectsList() {
   return (
     <>
       <main className="projects container">
-        <h1 className="display-6 text-center mt-3 mb-5">Portfolio</h1>
+        <h1 className="display-6 text-center mt-3 mb-4">Portfolio</h1>
         <div className="row">
           {projects?.map((p) => (
             <div key={p.id} className="col-md-6">

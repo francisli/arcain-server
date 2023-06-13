@@ -24,7 +24,18 @@ router.get('/', async (req, res) => {
     delete options.where.isVisible;
   }
   if (req.query?.ProjectId) {
-    options.where.ProjectId = req.query.ProjectId;
+    const { ProjectId } = req.query;
+    let project;
+    if (ProjectId.match(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/)) {
+      project = await models.Project.findByPk(ProjectId);
+    } else {
+      project = await models.Project.findOne({ where: { link: ProjectId } });
+    }
+    if (!project) {
+      res.status(StatusCodes.NOT_FOUND).end();
+      return;
+    }
+    options.where.ProjectId = project.id;
     const { records, pages, total } = await models.Photo.paginate(options);
     helpers.setPaginationHeaders(req, res, page, pages, total);
     res.json(records.map((r) => r.toJSON()));

@@ -4,9 +4,9 @@ import './ProjectCard.scss';
 
 function ProjectCard({ record }) {
   return (
-    <Link to={record.link} className="project" style={{ backgroundImage: record ? `url(${record.thumbURL})` : 'none' }}>
-      <div className="project__details">
-        <div className="project__name">{record.name}</div>
+    <Link to={record.link} className="project-card" style={{ backgroundImage: record ? `url(${record.thumbURL})` : 'none' }}>
+      <div className="project-card__details">
+        <div className="project-card__name">{record.name}</div>
       </div>
     </Link>
   );

@@ -46,7 +46,13 @@ router.post('/', interceptors.requireAdmin, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const record = await models.Project.findByPk(req.params.id);
+    const { id } = req.params;
+    let record;
+    if (id.match(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/)) {
+      record = await models.Project.findByPk(req.params.id);
+    } else {
+      record = await models.Project.findOne({ where: { link: id } });
+    }
     if (record) {
       if (!record.isVisible && !req.user?.isAdmin) {
         res.status(StatusCodes.UNAUTHORIZED).end();

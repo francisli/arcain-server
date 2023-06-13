@@ -29,11 +29,19 @@ describe('/api/projects', () => {
 
     describe('GET /:id', () => {
       it('returns a visible Project by id', async () => {
-        /// request user list
         const response = await testSession
           .get('/api/projects/b7cf0682-8286-4144-9dd8-4b49849ee4e0')
           .set('Accept', 'application/json')
           .expect(StatusCodes.OK);
+
+        assert.deepStrictEqual(response.body?.name, 'Project 1');
+        assert.deepStrictEqual(response.body?.link, 'project-1');
+        assert.deepStrictEqual(response.body?.desc, 'This is Project 1.');
+        assert.deepStrictEqual(response.body?.isVisible, true);
+      });
+
+      it('returns a visible Project by its link', async () => {
+        const response = await testSession.get('/api/projects/project-1').set('Accept', 'application/json').expect(StatusCodes.OK);
 
         assert.deepStrictEqual(response.body?.name, 'Project 1');
         assert.deepStrictEqual(response.body?.link, 'project-1');
