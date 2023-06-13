@@ -11,12 +11,15 @@ function Home() {
 
   useEffect(() => {
     let isCancelled = false;
-    Api.photos.index().then((response) => {
-      if (isCancelled) return;
-      if (response.data?.length) {
-        setPhoto(response.data[0]);
-      }
-    });
+    Api.photos
+      .index()
+      .then((response) => {
+        if (isCancelled) return;
+        if (response.data?.length) {
+          setPhoto(response.data[0]);
+        }
+      })
+      .catch(() => {});
     return () => (isCancelled = true);
   }, []);
 
