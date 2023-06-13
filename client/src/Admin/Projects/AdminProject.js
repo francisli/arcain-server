@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+
 import FormGroup from '../../Components/FormGroup';
 import Api from '../../Api';
+
+import PhotoForm from './PhotoForm';
 
 function AdminProject() {
   const { ProjectId } = useParams();
   const [record, setRecord] = useState();
+  const [photos, setPhotos] = useState();
 
   useEffect(() => {
     let isCancelled = false;
     if (ProjectId) {
-      Api.projects.get(ProjectId).then((response) => {
-        if (isCancelled) return;
-        setRecord(response.data);
-      });
+      Api.projects
+        .get(ProjectId)
+        .then((response) => {
+          if (isCancelled) return;
+          setRecord(response.data);
+          return Api.photos.index({ ProjectId, showAll: true });
+        })
+        .then((response) => {
+          if (isCancelled) return;
+          setPhotos(response.data);
+        });
     }
     return () => (isCancelled = true);
   }, [ProjectId]);
@@ -44,6 +55,20 @@ function AdminProject() {
           Upload new Photos
         </Link>
       </div>
+      {photos?.map((p) => (
+        <div key={p.id} className="card mb-4">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-4">
+                <img className="img-fluid" src={p.thumbURL} alt={p.desc} />
+              </div>
+              <div className="col-8">
+                <PhotoForm record={p} />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
     </>
   );
 }
