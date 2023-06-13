@@ -73,12 +73,12 @@ function ProjectForm() {
     <>
       <Helmet>
         <title>
-          {record.id ? 'Edit' : 'New'} Project - {staticContext?.env?.REACT_APP_SITE_TITLE}
+          {ProjectId ? 'Edit' : 'New'} Project - {staticContext?.env?.REACT_APP_SITE_TITLE}
         </title>
       </Helmet>
       <div className="row">
         <div className="col-md-6">
-          <h2 className="display-6">{record.id ? 'Edit' : 'New'} Project</h2>
+          <h2 className="display-6">{ProjectId ? 'Edit' : 'New'} Project</h2>
           <form onSubmit={onSubmit}>
             {error && error.message && <div className="alert alert-danger">{error.message}</div>}
             <fieldset disabled={isLoading}>

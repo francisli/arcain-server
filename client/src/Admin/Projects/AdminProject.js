@@ -20,9 +20,9 @@ function AdminProject() {
 
   return (
     <>
-      <div className="row">
+      <h1 className="display-6">Project</h1>
+      <div className="row mb-5">
         <div className="col-md-6">
-          <h1 className="display-6">Project</h1>
           {record && (
             <>
               <FormGroup label="Name" name="name" record={record} plaintext={true} />
@@ -37,6 +37,12 @@ function AdminProject() {
             </Link>
           </div>
         </div>
+      </div>
+      <h2 className="display-6">Photos</h2>
+      <div className="mb-5">
+        <Link to="upload" className="btn btn-outline-primary">
+          Upload new Photos
+        </Link>
       </div>
     </>
   );
