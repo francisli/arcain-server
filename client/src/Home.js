@@ -9,7 +9,7 @@ function Home() {
         <title>Home - {staticContext?.env?.REACT_APP_SITE_TITLE}</title>
       </Helmet>
       <main className="container">
-        <h1>Home</h1>
+        <h1 className="display-1">Home</h1>
       </main>
     </>
   );

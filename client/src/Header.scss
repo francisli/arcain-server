@@ -1,3 +1,5 @@
+@import './Assets/Variables';
+
 .header__picture {
   background-position: center;
   background-size: cover;
@@ -8,4 +10,18 @@
   top: -2px;
   vertical-align: middle;
   width: 36px;
+}
+
+.header__link {
+  border-bottom: 3px solid transparent;
+  color: black;
+  font-family: $display-font-family;
+  font-size: 20px;
+  margin: 0 1.5rem;
+  text-decoration: none;
+
+  &:hover {
+    border-bottom: 3px solid black;
+    color: black;
+  }
 }
