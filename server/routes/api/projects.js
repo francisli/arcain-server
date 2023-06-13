@@ -68,6 +68,19 @@ router.patch('/:id', interceptors.requireAdmin, async (req, res) => {
       record = await models.Project.findByPk(req.params.id, { transaction });
       if (record) {
         await record.update(_.pick(req.body, ['name', 'link', 'desc', 'isVisible']), { transaction });
+        if (!record.thumbURL) {
+          const photo = await models.Photo.findOne({
+            where: { ProjectId: record.id, isVisible: true },
+            order: [
+              ['position', 'ASC'],
+              ['fileName', 'ASC'],
+            ],
+            transaction,
+          });
+          if (photo) {
+            await record.update({ thumbURL: photo.thumbURL }, { transaction });
+          }
+        }
       }
     });
     if (!record) {

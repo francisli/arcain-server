@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     toJSON() {
-      const json = _.pick(this.get(), ['id', 'name', 'link', 'desc', 'isVisible', 'position']);
+      const json = _.pick(this.get(), ['id', 'name', 'link', 'desc', 'isVisible', 'position', 'thumbURL']);
       return json;
     }
   }
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       desc: DataTypes.TEXT,
       isVisible: DataTypes.BOOLEAN,
       position: DataTypes.INTEGER,
+      thumbURL: DataTypes.TEXT,
     },
     {
       sequelize,

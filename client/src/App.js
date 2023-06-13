@@ -14,6 +14,7 @@ import InvitesRoutes from './Invites/InvitesRoutes';
 import PasswordsRoutes from './Passwords/PasswordsRoutes';
 import Register from './Register';
 import UsersRoutes from './Users/UsersRoutes';
+import ProjectsRoutes from './Projects/ProjectsRoutes';
 
 function App() {
   const { staticContext } = useStaticContext();
@@ -28,6 +29,7 @@ function App() {
             <AppRedirects>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/portfolio/*" element={<ProjectsRoutes />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/passwords/*" element={<PasswordsRoutes />} />
                 <Route path="/invites/*" element={<InvitesRoutes />} />

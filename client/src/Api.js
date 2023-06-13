@@ -82,7 +82,7 @@ const Api = {
     },
   },
   projects: {
-    index({ showAll }) {
+    index({ showAll } = {}) {
       return instance.get(`/api/projects`, { params: { showAll } });
     },
     create(data) {
