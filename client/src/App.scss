@@ -55,3 +55,28 @@
 body {
   padding-top: 5rem;
 }
+
+label.form-label {
+  font-weight: 600;
+}
+
+.square {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.square::after {
+  content: ' ';
+  display: block;
+  padding: 50%;
+}
+
+.square__content {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

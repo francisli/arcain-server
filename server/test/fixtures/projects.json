@@ -1,0 +1,35 @@
+[
+  {
+    "model": "Project",
+    "data": {
+      "id": "b7cf0682-8286-4144-9dd8-4b49849ee4e0",
+      "name": "Project 1",
+      "link": "project-1",
+      "desc": "This is Project 1.",
+      "isVisible": true,
+      "position": 3
+    }
+  },
+  {
+    "model": "Project",
+    "data": {
+      "id": "7103974b-84d1-440c-b2e4-ee70b68c0b40",
+      "name": "Project 2",
+      "link": "project-2",
+      "desc": "This is Project 2.",
+      "isVisible": false,
+      "position": 2
+    }
+  },
+  {
+    "model": "Project",
+    "data": {
+      "id": "cff19951-31c5-48f9-8c8a-60f6fe462629",
+      "name": "Project 3",
+      "link": "project-3",
+      "desc": "This is Project 3.",
+      "isVisible": true,
+      "position": 1
+    }
+  }
+]

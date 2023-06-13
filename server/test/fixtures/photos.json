@@ -1,0 +1,22 @@
+[
+  {
+    "model": "Photo",
+    "data": {
+      "id": "ed2f158a-e44e-432d-971e-e5da1a2e33b4",
+      "ProjectId": "b7cf0682-8286-4144-9dd8-4b49849ee4e0",
+      "file": "b45136f4-54e4-45cd-8851-efc9d733a573.png",
+      "isVisible": false,
+      "isVisibleOnHome": true
+    }
+  },
+  {
+    "model": "Photo",
+    "data": {
+      "id": "84b62056-05a4-4751-953f-7854ac46bc0f",
+      "ProjectId": "b7cf0682-8286-4144-9dd8-4b49849ee4e0",
+      "file": "cdd8007d-dcaf-4163-b497-92d378679668.png",
+      "isVisible": true,
+      "isVisibleOnHome": true
+    }
+  }
+]

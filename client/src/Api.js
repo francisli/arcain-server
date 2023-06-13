@@ -9,7 +9,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       window.location = '/login';
     }
     return Promise.reject(error);
@@ -65,6 +65,34 @@ const Api = {
     },
     update(token, password) {
       return instance.patch(`/api/passwords/${token}`, { password });
+    },
+  },
+  photos: {
+    index({ ProjectId, showAll } = {}) {
+      return instance.get(`/api/photos`, { params: { ProjectId, showAll } });
+    },
+    create(data) {
+      return instance.post(`/api/photos`, data);
+    },
+    get(id) {
+      return instance.get(`/api/photos/${id}`);
+    },
+    update(id, data) {
+      return instance.patch(`/api/photos/${id}`, data);
+    },
+  },
+  projects: {
+    index({ showAll } = {}) {
+      return instance.get(`/api/projects`, { params: { showAll } });
+    },
+    create(data) {
+      return instance.post(`/api/projects`, data);
+    },
+    get(id) {
+      return instance.get(`/api/projects/${id}`);
+    },
+    update(id, data) {
+      return instance.patch(`/api/projects/${id}`, data);
     },
   },
   users: {

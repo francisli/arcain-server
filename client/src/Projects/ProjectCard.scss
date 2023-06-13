@@ -1,0 +1,35 @@
+@import '../Assets/Variables';
+
+.project-card {
+  aspect-ratio: 16 / 9;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  position: relative;
+
+  &:hover .project-card__details {
+    opacity: 1;
+    transition: opacity 0.2s linear;
+  }
+}
+
+.project-card__details {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: $display-font-family;
+  font-size: 32px;
+  left: 0;
+  opacity: 0;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+}

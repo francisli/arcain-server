@@ -6,6 +6,7 @@ import { AuthContextProvider } from './AuthContext';
 import { useStaticContext } from './StaticContext';
 import AppRedirects from './AppRedirects';
 import Header from './Header';
+import Footer from './Footer';
 import Home from './Home';
 import Login from './Login';
 import AdminRoutes from './Admin/AdminRoutes';
@@ -13,6 +14,7 @@ import InvitesRoutes from './Invites/InvitesRoutes';
 import PasswordsRoutes from './Passwords/PasswordsRoutes';
 import Register from './Register';
 import UsersRoutes from './Users/UsersRoutes';
+import ProjectsRoutes from './Projects/ProjectsRoutes';
 
 function App() {
   const { staticContext } = useStaticContext();
@@ -27,6 +29,7 @@ function App() {
             <AppRedirects>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/portfolio/*" element={<ProjectsRoutes />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/passwords/*" element={<PasswordsRoutes />} />
                 <Route path="/invites/*" element={<InvitesRoutes />} />
@@ -38,6 +41,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </AuthContextProvider>
   );
 }
