@@ -53,31 +53,6 @@ function Header() {
         <div className={classNames('collapse navbar-collapse', { show: isNavbarShowing })}>
           <ul className="navbar-nav flex-grow-1 mb-2 mb-md-0">
             <div className="flex-grow-1 d-flex flex-column flex-md-row align-items-stretch align-items-md-start justify-content-end bg-white">
-              {user && (
-                <>
-                  {user.isAdmin && (
-                    <li className="nav-item">
-                      <Link className="header__link" to="/admin" onClick={hideNavbar}>
-                        Admin
-                      </Link>
-                    </li>
-                  )}
-                  <li className="nav-item me-3">
-                    <span className="header__link d-inline-block me-1">
-                      Hello,{' '}
-                      <Link to="/account" onClick={hideNavbar}>
-                        {user.firstName}!
-                      </Link>
-                    </span>
-                    {user.pictureUrl && <div className="header__picture" style={{ backgroundImage: `url(${user.pictureUrl})` }}></div>}
-                  </li>
-                  <li className="nav-item">
-                    <a className="header__link" href="/logout" onClick={onLogout}>
-                      Log out
-                    </a>
-                  </li>
-                </>
-              )}
               <li className="nav-item text-center py-2 py-md-0">
                 <Link className="header__link" to="/portfolio" onClick={hideNavbar}>
                   Portfolio
@@ -93,6 +68,22 @@ function Header() {
                   Contact
                 </Link>
               </li>
+              {user && (
+                <>
+                  {user.isAdmin && (
+                    <li className="nav-item text-center py-2 py-md-0">
+                      <Link className="header__link" to="/admin" onClick={hideNavbar}>
+                        Admin
+                      </Link>
+                    </li>
+                  )}
+                  <li className="nav-item text-center py-2 py-md-0">
+                    <a className="header__link" href="/logout" onClick={onLogout}>
+                      Log out
+                    </a>
+                  </li>
+                </>
+              )}
             </div>
           </ul>
         </div>
