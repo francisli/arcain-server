@@ -68,7 +68,7 @@ const Api = {
     },
   },
   photos: {
-    index({ ProjectId, showAll }) {
+    index({ ProjectId, showAll } = {}) {
       return instance.get(`/api/photos`, { params: { ProjectId, showAll } });
     },
     create(data) {
