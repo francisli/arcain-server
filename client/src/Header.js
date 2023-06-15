@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import Logo from './Assets/Logo.svg';
 import './Header.scss';
 import Api from './Api';
 import { useAuthContext } from './AuthContext';
@@ -45,7 +44,7 @@ function Header() {
     <nav className="header navbar navbar-expand-md navbar-light fixed-top">
       <div className="container">
         <Link className="navbar-brand" to="/" onClick={hideNavbar}>
-          <img src={Logo} alt="Arcain" />
+          <img src="/logo.svg" alt="Arcain" />
         </Link>
         <button onClick={toggleNavbar} className="navbar-toggler" type="button" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
