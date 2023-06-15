@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
+import { Helmet } from 'react-helmet-async';
 
+import { useStaticContext } from '../StaticContext';
 import Api from '../Api';
 import './Project.scss';
 
 function Project() {
+  const staticContext = useStaticContext();
   const { ProjectId } = useParams();
   const [record, setRecord] = useState();
   const [photos, setPhotos] = useState();
@@ -25,6 +28,11 @@ function Project() {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {record?.name ?? ''} - {staticContext?.env?.REACT_APP_SITE_TITLE}
+        </title>
+      </Helmet>
       <main className="project">
         <div className="project__lightbox mb-5">
           <div className="container">
@@ -41,7 +49,7 @@ function Project() {
         </div>
         <div className="container">
           <div className="row">
-            <div className="col-md-7">
+            <div className="col-md-7 mb-5">
               <h1 className="display-6">{record?.name}</h1>
               <p>{record?.desc}</p>
             </div>
