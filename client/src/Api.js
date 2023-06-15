@@ -74,6 +74,9 @@ const Api = {
     create(data) {
       return instance.post(`/api/photos`, data);
     },
+    reorder(data) {
+      return instance.patch(`/api/photos/reorder`, data);
+    },
     get(id) {
       return instance.get(`/api/photos/${id}`);
     },

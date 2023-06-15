@@ -116,6 +116,25 @@ describe('/api/photos', () => {
       });
     });
 
+    describe('PATCH /reorder', () => {
+      it('reorders the Photos in the request body', async () => {
+        await testSession
+          .patch('/api/photos/reorder')
+          .send([
+            { id: 'ed2f158a-e44e-432d-971e-e5da1a2e33b4', position: 1 },
+            { id: '84b62056-05a4-4751-953f-7854ac46bc0f', position: 2 },
+          ])
+          .set('Accept', 'application/json')
+          .expect(StatusCodes.NO_CONTENT);
+
+        let record;
+        record = await models.Photo.findByPk('ed2f158a-e44e-432d-971e-e5da1a2e33b4');
+        assert.deepStrictEqual(record?.position, 1);
+        record = await models.Photo.findByPk('84b62056-05a4-4751-953f-7854ac46bc0f');
+        assert.deepStrictEqual(record?.position, 2);
+      });
+    });
+
     describe('GET /:id', () => {
       it('returns a Project by id', async () => {
         /// request user list

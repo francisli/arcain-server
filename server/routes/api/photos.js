@@ -64,6 +64,38 @@ router.post('/', interceptors.requireAdmin, async (req, res) => {
   }
 });
 
+router.patch('/reorder', interceptors.requireAdmin, async (req, res) => {
+  try {
+    await models.sequelize.transaction(async (transaction) => {
+      let firstPhoto;
+      await Promise.all(
+        req.body.map((obj, i) =>
+          models.Photo.findByPk(obj.id, { transaction }).then((p) => {
+            if (i === 0) {
+              firstPhoto = p;
+            }
+            return p.update({ position: obj.position }, { transaction });
+          })
+        )
+      );
+      if (firstPhoto) {
+        const project = await firstPhoto.getProject({ transaction });
+        await project.update({ thumbURL: firstPhoto.thumbURL }, { transaction });
+      }
+    });
+    res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        status: StatusCodes.UNPROCESSABLE_ENTITY,
+        errors: error.errors,
+      });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
+    }
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const record = await models.Photo.findByPk(req.params.id);
