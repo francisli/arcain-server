@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { ReactSortable } from 'react-sortablejs';
 
 import Api from '../../Api';
 import { useStaticContext } from '../../StaticContext';
@@ -17,6 +18,11 @@ function AdminProjectsList() {
     });
     return () => (isCancelled = true);
   }, []);
+
+  async function reorder(newRecords) {
+    setRecords(newRecords);
+    await Api.projects.reorder(newRecords.map((p, i) => ({ id: p.id, position: i })));
+  }
 
   return (
     <>
@@ -35,15 +41,19 @@ function AdminProjectsList() {
           <table className="table table-hover">
             <thead>
               <tr>
+                <th></th>
                 <th className="w-40">Name</th>
                 <th className="w-40">Link</th>
                 <th className="w-5">Is visible?</th>
                 <th className="w-15">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <ReactSortable tag="tbody" list={records ?? []} setList={reorder}>
               {records?.map((r) => (
                 <tr key={r.id}>
+                  <td>
+                    <span className="draggable">&equiv;</span>
+                  </td>
                   <td>{r.name}</td>
                   <td>{r.link}</td>
                   <td>{r.isVisible && 'Visible'}</td>
@@ -52,7 +62,7 @@ function AdminProjectsList() {
                   </td>
                 </tr>
               ))}
-            </tbody>
+            </ReactSortable>
           </table>
         </div>
       </>

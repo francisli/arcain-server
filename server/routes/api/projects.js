@@ -44,6 +44,28 @@ router.post('/', interceptors.requireAdmin, async (req, res) => {
   }
 });
 
+router.patch('/reorder', interceptors.requireAdmin, async (req, res) => {
+  try {
+    await models.sequelize.transaction((transaction) =>
+      Promise.all(
+        req.body.map((obj) =>
+          models.Project.findByPk(obj.id, { transaction }).then((p) => p.update({ position: obj.position }, { transaction }))
+        )
+      )
+    );
+    res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        status: StatusCodes.UNPROCESSABLE_ENTITY,
+        errors: error.errors,
+      });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
+    }
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;

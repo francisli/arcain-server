@@ -139,9 +139,30 @@ describe('/api/projects', () => {
       });
     });
 
+    describe('PATCH /reorder', () => {
+      it('reorders the Projects in the request body', async () => {
+        await testSession
+          .patch('/api/projects/reorder')
+          .send([
+            { id: 'b7cf0682-8286-4144-9dd8-4b49849ee4e0', position: 1 },
+            { id: '7103974b-84d1-440c-b2e4-ee70b68c0b40', position: 2 },
+            { id: 'cff19951-31c5-48f9-8c8a-60f6fe462629', position: 3 },
+          ])
+          .set('Accept', 'application/json')
+          .expect(StatusCodes.NO_CONTENT);
+
+        let record;
+        record = await models.Project.findByPk('b7cf0682-8286-4144-9dd8-4b49849ee4e0');
+        assert.deepStrictEqual(record?.position, 1);
+        record = await models.Project.findByPk('7103974b-84d1-440c-b2e4-ee70b68c0b40');
+        assert.deepStrictEqual(record?.position, 2);
+        record = await models.Project.findByPk('cff19951-31c5-48f9-8c8a-60f6fe462629');
+        assert.deepStrictEqual(record?.position, 3);
+      });
+    });
+
     describe('GET /:id', () => {
       it('returns a Project by id', async () => {
-        /// request user list
         const response = await testSession
           .get('/api/projects/7103974b-84d1-440c-b2e4-ee70b68c0b40')
           .set('Accept', 'application/json')
