@@ -1,7 +1,7 @@
 @import './Assets/Variables';
 
 .header {
-  background: white;
+  background: var(--bs-body-bg);
 }
 
 .header__picture {
@@ -18,14 +18,15 @@
 
 .header__link {
   border-bottom: 3px solid transparent;
-  color: black;
+  color: var(--bs-heading-color);
   font-family: $display-font-family;
   font-size: 20px;
   margin: 0 1.5rem;
   text-decoration: none;
 
   &:hover {
-    border-bottom: 3px solid black;
-    color: black;
+    border-bottom: 3px solid;
+    border-bottom-color: var(--bs-heading-color);
+    color: var(--bs-heading-color);
   }
 }

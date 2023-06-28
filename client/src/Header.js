@@ -41,7 +41,7 @@ function Header() {
   }
 
   return (
-    <nav className="header navbar navbar-expand-md navbar-light fixed-top">
+    <nav className="header navbar navbar-expand-md fixed-top">
       <div className="container">
         <Link className="navbar-brand" to="/" onClick={hideNavbar}>
           <img src="/logo.svg" alt="Arcain" />
@@ -51,7 +51,7 @@ function Header() {
         </button>
         <div className={classNames('collapse navbar-collapse', { show: isNavbarShowing })}>
           <ul className="navbar-nav flex-grow-1 mb-2 mb-md-0">
-            <div className="flex-grow-1 d-flex flex-column flex-md-row align-items-stretch align-items-md-start justify-content-end bg-white">
+            <div className="flex-grow-1 d-flex flex-column flex-md-row align-items-stretch align-items-md-start justify-content-end">
               <li className="nav-item text-center py-2 py-md-0">
                 <Link className="header__link" to="/portfolio" onClick={hideNavbar}>
                   Portfolio
