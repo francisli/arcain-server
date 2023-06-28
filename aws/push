@@ -19,6 +19,13 @@ if [[ $BRANCH == 'main' ]]; then
       fi
     fi
 
+    # log in to Docker hub
+    if [[ "$DOCKER_USERNAME" != "" && "$DOCKER_PASSWORD" != "" ]]; then
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    else
+      docker login
+    fi
+
     # get account id
     IDENTITY=`aws sts get-caller-identity --output text`
     if [[ $IDENTITY =~ ([^[:space:]]*) ]]; then
@@ -37,6 +44,6 @@ if [[ $BRANCH == 'main' ]]; then
     # build and push
     SCRIPT_DIR=`dirname $BASH_SOURCE`
     BUILD_PATH=`readlink -f $SCRIPT_DIR/..`
-    docker buildx build --push --platform linux/arm64,linux/amd64 --tag $REPO/$APP_NAME:$TAG $BUILD_PATH
+    docker buildx build --push --platform linux/arm64,linux/amd64 --tag $REPO/$APP_NAME:$TAG --tag francisli/arcain-server:$TAG $BUILD_PATH
   fi
 fi
