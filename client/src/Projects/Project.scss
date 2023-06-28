@@ -4,6 +4,15 @@
 
 .project__carousel {
   aspect-ratio: 2 / 1;
+  .carousel {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: revert;
+    }
+    .carousel-indicators [data-bs-target] {
+      background-color: #fff;
+    }
+  }
 }
 
 .project__photo {

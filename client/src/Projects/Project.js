@@ -37,7 +37,7 @@ function Project() {
         <div className="project__lightbox mb-5">
           <div className="container">
             <div className="project__carousel">
-              <Carousel pause="hover">
+              <Carousel interval={5000} pause="hover">
                 {photos?.map((p) => (
                   <Carousel.Item>
                     <div className="project__photo" style={{ backgroundImage: `url(${p.fileURL})` }}></div>
