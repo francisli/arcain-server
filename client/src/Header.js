@@ -43,7 +43,7 @@ function Header() {
   return (
     <nav className="header navbar navbar-expand-md fixed-top">
       <div className="container">
-        <Link className="navbar-brand" to="/" onClick={hideNavbar}>
+        <Link className="navbar-brand" to="/home" onClick={hideNavbar}>
           <img src="/logo.svg" alt="Arcain" />
         </Link>
         <button onClick={toggleNavbar} className="navbar-toggler" type="button" aria-label="Toggle navigation">

@@ -1,0 +1,23 @@
+.frontdoor {
+  height: calc(100svh - 4rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.frontdoor__content {
+  opacity: 0;
+  text-align: center;
+}
+
+.frontdoor--showing .frontdoor__content {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.frontdoor__logo {
+  display: block;
+  height: auto;
+  margin: 2rem auto;
+  width: 200px;
+}

@@ -7,6 +7,7 @@ import { useStaticContext } from './StaticContext';
 import AppRedirects from './AppRedirects';
 import Header from './Header';
 import Footer from './Footer';
+import FrontDoor from './FrontDoor';
 import Home from './Home';
 import Login from './Login';
 import AdminRoutes from './Admin/AdminRoutes';
@@ -21,27 +22,37 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <Header />
       <Routes>
         <Route
           path="*"
           element={
             <AppRedirects>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/portfolio/*" element={<ProjectsRoutes />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/passwords/*" element={<PasswordsRoutes />} />
-                <Route path="/invites/*" element={<InvitesRoutes />} />
-                {staticContext?.env?.REACT_APP_FEATURE_REGISTRATION === 'true' && <Route path="/register" element={<Register />} />}
-                <Route path="/account/*" element={<UsersRoutes />} />
-                <Route path="/admin/*" element={<AdminRoutes />} />
+                <Route
+                  path="/*"
+                  element={
+                    <>
+                      <Header />
+                      <Routes>
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/portfolio/*" element={<ProjectsRoutes />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/passwords/*" element={<PasswordsRoutes />} />
+                        <Route path="/invites/*" element={<InvitesRoutes />} />
+                        {staticContext?.env?.REACT_APP_FEATURE_REGISTRATION === 'true' && <Route path="/register" element={<Register />} />}
+                        <Route path="/account/*" element={<UsersRoutes />} />
+                        <Route path="/admin/*" element={<AdminRoutes />} />
+                      </Routes>
+                      <Footer />
+                    </>
+                  }
+                />
+                <Route path="/" element={<FrontDoor />} />
               </Routes>
             </AppRedirects>
           }
         />
       </Routes>
-      <Footer />
     </AuthContextProvider>
   );
 }
