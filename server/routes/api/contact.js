@@ -3,7 +3,6 @@ const { StatusCodes } = require('http-status-codes');
 const _ = require('lodash');
 
 const mailer = require('../../emails/mailer');
-const models = require('../../models');
 
 const router = express.Router();
 
@@ -26,7 +25,6 @@ router.post('/', async (req, res) => {
     });
     res.status(StatusCodes.NO_CONTENT).end();
   } catch (error) {
-    console.log(error);
     if (error.name === 'SequelizeValidationError') {
       res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
         status: StatusCodes.UNPROCESSABLE_ENTITY,
