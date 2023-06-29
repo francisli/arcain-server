@@ -11,6 +11,7 @@ function FormGroup({
   placeholder,
   plaintext,
   record,
+  required,
   value,
   error,
   onChange,
@@ -52,6 +53,7 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
               value={record ? record[name] : value}>
               {children}
@@ -69,6 +71,7 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
               value={record ? record[name] : value}></textarea>
           )}
@@ -85,6 +88,7 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
               value={record ? record[name] : value}
             />
