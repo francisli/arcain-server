@@ -63,7 +63,7 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item text-center py-2 py-md-0">
-                <Link className={classNames('header__link', { 'me-0': !user })} to="/contact" onClick={hideNavbar}>
+                <Link className={classNames('header__link', { 'me-md-0': !user })} to="/contact" onClick={hideNavbar}>
                   Contact
                 </Link>
               </li>
@@ -77,7 +77,7 @@ function Header() {
                     </li>
                   )}
                   <li className="nav-item text-center py-2 py-md-0">
-                    <a className="header__link me-0" href="/logout" onClick={onLogout}>
+                    <a className="header__link me-md-0" href="/logout" onClick={onLogout}>
                       Log out
                     </a>
                   </li>
