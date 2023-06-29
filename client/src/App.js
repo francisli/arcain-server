@@ -9,6 +9,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FrontDoor from './FrontDoor';
 import Home from './Home';
+import Page from './Page';
 import Login from './Login';
 import AdminRoutes from './Admin/AdminRoutes';
 import InvitesRoutes from './Invites/InvitesRoutes';
@@ -42,6 +43,7 @@ function App() {
                         {staticContext?.env?.REACT_APP_FEATURE_REGISTRATION === 'true' && <Route path="/register" element={<Register />} />}
                         <Route path="/account/*" element={<UsersRoutes />} />
                         <Route path="/admin/*" element={<AdminRoutes />} />
+                        <Route path="/:link" element={<Page />} />
                       </Routes>
                       <Footer />
                     </>
