@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ReactSortable } from 'react-sortablejs';
 
 import Api from '../../Api';
 import { useStaticContext } from '../../StaticContext';
