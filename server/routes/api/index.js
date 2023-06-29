@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.use('/assets', require('./assets'));
 router.use('/auth', require('./auth'));
+router.use('/contact', require('./contact'));
 router.use('/invites', require('./invites'));
 router.use('/pages', require('./pages'));
 router.use('/passwords', require('./passwords'));

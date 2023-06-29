@@ -36,6 +36,11 @@ const Api = {
       return instance.post('/api/auth/register', data);
     },
   },
+  contact: {
+    create(data) {
+      return instance.post('/api/contact', data);
+    },
+  },
   invites: {
     index() {
       return instance.get(`/api/invites`);

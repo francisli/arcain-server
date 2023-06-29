@@ -11,8 +11,10 @@ function FormGroup({
   placeholder,
   plaintext,
   record,
+  required,
   value,
   error,
+  onBlur,
   onChange,
 }) {
   return (
@@ -52,7 +54,9 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
+              onBlur={(event) => onBlur?.(event)}
               value={record ? record[name] : value}>
               {children}
             </select>
@@ -69,7 +73,9 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
+              onBlur={(event) => onBlur?.(event)}
               value={record ? record[name] : value}></textarea>
           )}
           {type !== 'textarea' && type !== 'select' && (
@@ -85,7 +91,9 @@ function FormGroup({
               name={name}
               placeholder={placeholder}
               readOnly={plaintext}
+              required={required}
               onChange={onChange}
+              onBlur={(event) => onBlur?.(event)}
               value={record ? record[name] : value}
             />
           )}

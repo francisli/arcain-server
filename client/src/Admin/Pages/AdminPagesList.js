@@ -35,7 +35,6 @@ function AdminPagesList() {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th></th>
                 <th className="w-40">Title</th>
                 <th className="w-40">Link</th>
                 <th className="w-5">Is visible?</th>
@@ -45,9 +44,6 @@ function AdminPagesList() {
             <tbody>
               {records?.map((r) => (
                 <tr key={r.id}>
-                  <td>
-                    <span className="draggable">&equiv;</span>
-                  </td>
                   <td>{r.title}</td>
                   <td>{r.link}</td>
                   <td>{r.isVisible && 'Visible'}</td>
