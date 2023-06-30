@@ -26,12 +26,17 @@ function Project() {
     return () => (isCancelled = true);
   }, [ProjectId]);
 
+  const baseURL = staticContext?.env?.BASE_URL ?? `${window.location.protocol}//${window.location.host}`;
+  const imageURL = `${baseURL}${photos?.[0]?.fileURL}`;
   return (
     <>
       <Helmet>
         <title>
           {record?.name ?? ''} - {staticContext?.env?.REACT_APP_SITE_TITLE}
         </title>
+        <meta property="og:image" content={imageURL} />
+        <meta property="og:title" content={record?.name ?? ''} />
+        <meta property="og:description" content={record?.desc ?? ''} />
       </Helmet>
       <main className="project">
         <div className="project__lightbox mb-5">
@@ -39,7 +44,7 @@ function Project() {
             <div className="project__carousel">
               <Carousel interval={5000} pause="hover">
                 {photos?.map((p) => (
-                  <Carousel.Item>
+                  <Carousel.Item key={p.id}>
                     <div className="project__photo" style={{ backgroundImage: `url(${p.fileURL})` }}></div>
                   </Carousel.Item>
                 ))}
@@ -56,7 +61,7 @@ function Project() {
             <div className="col-md-4 offset-md-1">
               <div className="row">
                 {photos?.map((p) => (
-                  <div className="col-6 mb-4">
+                  <div key={p.id} className="col-6 mb-4">
                     <div className="project__photo" style={{ backgroundImage: `url(${p.thumbURL})` }}></div>
                   </div>
                 ))}

@@ -17,16 +17,18 @@ const defaultValue = {
 
 function Contact() {
   const staticContext = useStaticContext();
-  const [record, setRecord] = useState();
+  const [record, setRecord] = useState(staticContext?.record?.link === 'contact' ? staticContext.record : undefined);
 
   useEffect(() => {
     let isCancelled = false;
-    Api.pages.get('contact').then((response) => {
-      if (isCancelled) return;
-      setRecord(response.data);
-    });
+    if (!record) {
+      Api.pages.get('contact').then((response) => {
+        if (isCancelled) return;
+        setRecord(response.data);
+      });
+    }
     return () => (isCancelled = true);
-  }, []);
+  }, [record]);
 
   const [data, setData] = useState(defaultValue);
   const [isLoading, setLoading] = useState(false);
