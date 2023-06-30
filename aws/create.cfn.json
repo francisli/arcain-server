@@ -46,6 +46,10 @@
       "Type": "String",
       "Default": ""
     },
+    "ContactAddress": {
+      "Description": "The email address to receive Contact form submissions",
+      "Type": "String"
+    },
     "EmailAddress": {
       "Description": "The email address used to send transactional email from the web app",
       "Type": "String",
@@ -495,6 +499,11 @@
                 ]
               ]
             }
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:application:environment",
+            "OptionName": "CONTACT_EMAIL",
+            "Value": { "Ref": "ContactAddress" }
           },
           {
             "Namespace": "aws:elasticbeanstalk:application:environment",

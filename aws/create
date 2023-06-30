@@ -5,6 +5,7 @@ read -p "Env name: " ENV_NAME
 read -p "Version: " VERSION
 read -p "Custom domain (optional) for the instance: " DOMAIN
 read -p "Email address to send transactional email from: " FROM_EMAIL
+read -p "Email address to receive Contact form submissions: " CONTACT_EMAIL
 read -p "Contact email to use for LetsEncrypt SSL registration: " LETSENCRYPT_EMAIL
 read -p "Human readable name of app (browser title, footers, etc): " SITE_TITLE
 read -p "Enable user registration? [y/n]: " FEATURE_REGISTRATION
@@ -23,7 +24,7 @@ PRIVATE_KEY=`cat private_key.pem`
 PRIVATE_KEY=${PRIVATE_KEY//
 /"\\n"}
 
-aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name ${APP_NAME}-${ENV_NAME} --template-body file://./create.cfn.json --parameters ParameterKey=ApplicationName,ParameterValue=$APP_NAME ParameterKey=EnvironmentName,ParameterValue=$ENV_NAME ParameterKey=Version,ParameterValue=$VERSION ParameterKey=DBPassword,ParameterValue=$DB_PASSWORD ParameterKey=LetsEncryptEmail,ParameterValue=$LETSENCRYPT_EMAIL ParameterKey=SessionSecret,ParameterValue=$SESSION_SECRET ParameterKey=SiteTitle,ParameterValue="$SITE_TITLE" ParameterKey=FeatureRegistration,ParameterValue=$FEATURE_REGISTRATION ParameterKey=CDNSigningPrivateKey,ParameterValue="$PRIVATE_KEY" ParameterKey=CDNSigningPublicKey,ParameterValue="$PUBLIC_KEY" ParameterKey=DomainName,ParameterValue="$DOMAIN" ParameterKey=EmailAddress,ParameterValue="$FROM_EMAIL" ParameterKey=LetsEncryptOpts,ParameterValue="$LETSENCRYPT_OPTS"
+aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name ${APP_NAME}-${ENV_NAME} --template-body file://./create.cfn.json --parameters ParameterKey=ApplicationName,ParameterValue=$APP_NAME ParameterKey=EnvironmentName,ParameterValue=$ENV_NAME ParameterKey=Version,ParameterValue=$VERSION ParameterKey=DBPassword,ParameterValue=$DB_PASSWORD ParameterKey=LetsEncryptEmail,ParameterValue=$LETSENCRYPT_EMAIL ParameterKey=SessionSecret,ParameterValue=$SESSION_SECRET ParameterKey=SiteTitle,ParameterValue="$SITE_TITLE" ParameterKey=FeatureRegistration,ParameterValue=$FEATURE_REGISTRATION ParameterKey=CDNSigningPrivateKey,ParameterValue="$PRIVATE_KEY" ParameterKey=CDNSigningPublicKey,ParameterValue="$PUBLIC_KEY" ParameterKey=DomainName,ParameterValue="$DOMAIN" ParameterKey=EmailAddress,ParameterValue="$FROM_EMAIL" ParameterKey=LetsEncryptOpts,ParameterValue="$LETSENCRYPT_OPTS" ParameterKey=ContactAddress,ParameterValue="$CONTACT_EMAIL"
 
 # wait for key pair to become available
 while : ; do
