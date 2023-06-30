@@ -8,18 +8,18 @@ import { useStaticContext } from './StaticContext';
 function Page() {
   const staticContext = useStaticContext();
   const { link } = useParams();
-  const [record, setRecord] = useState();
+  const [record, setRecord] = useState(staticContext?.record?.link === link ? staticContext.record : undefined);
 
   useEffect(() => {
     let isCancelled = false;
-    if (link) {
+    if (link && !record) {
       Api.pages.get(link).then((response) => {
         if (isCancelled) return;
         setRecord(response.data);
       });
     }
     return () => (isCancelled = true);
-  }, [link]);
+  }, [link, record]);
 
   return (
     <>

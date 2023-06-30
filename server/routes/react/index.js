@@ -29,6 +29,8 @@ const { defaultValue: defaultStaticContext, StaticContextProvider } = require('.
 const App = require('../../../client/src/App').default;
 const { handleRedirects } = require('../../../client/src/AppRedirects');
 
+const models = require('../../models');
+
 const router = express.Router();
 
 function readIndexFile() {
@@ -54,7 +56,8 @@ router.get('/*', async (req, res, next) => {
         return true;
       });
       if (isRedirected) return;
-      const staticContext = { ...defaultStaticContext, authContext: { user: req.user?.toJSON() ?? null } };
+      const record = await models.Page.findOne({ where: { link: urlPath.substring(1) } });
+      const staticContext = { ...defaultStaticContext, authContext: { user: req.user?.toJSON() ?? null }, record };
       const helmetContext = {};
       const reactApp = ReactDOMServer.renderToString(
         React.createElement(
