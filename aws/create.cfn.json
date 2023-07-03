@@ -90,7 +90,7 @@
     "InstanceRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
-        "RoleName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-ec2-role" },
+        "RoleName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-ec2-role" },
         "AssumeRolePolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
@@ -114,14 +114,14 @@
     "InstanceProfile": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
-        "InstanceProfileName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-ec2-profile" },
+        "InstanceProfileName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-ec2-profile" },
         "Roles": [{ "Ref": "InstanceRole" }]
       }
     },
     "InstanceSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-ec2-sg" },
+        "GroupName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-ec2-sg" },
         "GroupDescription": "Allow http/https/ssh traffic",
         "SecurityGroupIngress": [
           {
@@ -148,7 +148,7 @@
     "KeyPair": {
       "Type": "AWS::EC2::KeyPair",
       "Properties": {
-        "KeyName": { "Fn::Join": ["-", [{ "Ref": "ApplicationName" }, { "Ref": "EnvironmentName" }, "key-pair"]] }
+        "KeyName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-key-pair" }
       }
     },
     "BucketUser": {
@@ -156,7 +156,7 @@
       "Properties": {
         "Policies": [
           {
-            "PolicyName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-bucket-policy" },
+            "PolicyName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-bucket-policy" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -173,7 +173,7 @@
             }
           }
         ],
-        "UserName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-bucket-user" }
+        "UserName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-bucket-user" }
       }
     },
     "BucketUserAccessKey": {
@@ -274,7 +274,7 @@
             "CachedMethods": ["GET", "HEAD"],
             "CachePolicyId": { "Ref": "CDNCachePolicy" },
             "Compress": "true",
-            "TargetOriginId": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-bucket-origin" },
+            "TargetOriginId": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-bucket-origin" },
             "TrustedKeyGroups": [{ "Ref": "CDNKeyGroup" }],
             "ViewerProtocolPolicy": "redirect-to-https"
           },
@@ -284,7 +284,7 @@
           "Origins": [
             {
               "DomainName": { "Fn::GetAtt": ["Bucket", "RegionalDomainName"] },
-              "Id": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-bucket-origin" },
+              "Id": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-bucket-origin" },
               "OriginAccessControlId": { "Fn::GetAtt": ["CDNOriginAccessControl", "Id"] },
               "S3OriginConfig": {
                 "OriginAccessIdentity": ""
@@ -303,7 +303,7 @@
           "DefaultTTL": 86400,
           "MaxTTL": 31536000,
           "MinTTL": 1,
-          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-cache-policy" },
+          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-cache-policy" },
           "ParametersInCacheKeyAndForwardedToOrigin": {
             "CookiesConfig": {
               "CookieBehavior": "none"
@@ -325,7 +325,7 @@
       "Properties": {
         "KeyGroupConfig": {
           "Items": [{ "Ref": "CDNPublicKey" }],
-          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-key-group" }
+          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-key-group" }
         }
       }
     },
@@ -333,7 +333,7 @@
       "Type": "AWS::CloudFront::OriginAccessControl",
       "Properties": {
         "OriginAccessControlConfig": {
-          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-bucket-origin-access-control" },
+          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-bucket-origin-access-control" },
           "OriginAccessControlOriginType": "s3",
           "SigningBehavior": "always",
           "SigningProtocol": "sigv4"
@@ -344,16 +344,16 @@
       "Type": "AWS::CloudFront::PublicKey",
       "Properties": {
         "PublicKeyConfig": {
-          "CallerReference": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-public-key-caller-reference" },
+          "CallerReference": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-public-key-caller-reference" },
           "EncodedKey": { "Ref": "CDNSigningPublicKey" },
-          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-cf-public-key" }
+          "Name": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-cf-public-key" }
         }
       }
     },
     "DatabaseSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-db-sg" },
+        "GroupName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-db-sg" },
         "GroupDescription": "Allow postgres inbound traffic",
         "SecurityGroupIngress": [
           {
@@ -370,7 +370,7 @@
       "Properties": {
         "AllocatedStorage": 20,
         "DBInstanceClass": { "Ref": "DBInstanceType" },
-        "DBInstanceIdentifier": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-db" },
+        "DBInstanceIdentifier": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-db" },
         "DBName": { "Ref": "ApplicationName" },
         "Engine": "postgres",
         "EngineVersion": "14.6",
@@ -601,7 +601,7 @@
       "Properties": {
         "Policies": [
           {
-            "PolicyName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-ses-policy" },
+            "PolicyName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-ses-policy" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -614,7 +614,7 @@
             }
           }
         ],
-        "UserName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-ses-user" }
+        "UserName": { "Fn::Sub": "${ApplicationName}-${EnvironmentName}-${AWS::Region}-ses-user" }
       }
     },
     "SESUserAccessKey": {

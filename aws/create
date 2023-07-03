@@ -26,9 +26,11 @@ PRIVATE_KEY=${PRIVATE_KEY//
 
 aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name ${APP_NAME}-${ENV_NAME} --template-body file://./create.cfn.json --parameters ParameterKey=ApplicationName,ParameterValue=$APP_NAME ParameterKey=EnvironmentName,ParameterValue=$ENV_NAME ParameterKey=Version,ParameterValue=$VERSION ParameterKey=DBPassword,ParameterValue=$DB_PASSWORD ParameterKey=LetsEncryptEmail,ParameterValue=$LETSENCRYPT_EMAIL ParameterKey=SessionSecret,ParameterValue=$SESSION_SECRET ParameterKey=SiteTitle,ParameterValue="$SITE_TITLE" ParameterKey=FeatureRegistration,ParameterValue=$FEATURE_REGISTRATION ParameterKey=CDNSigningPrivateKey,ParameterValue="$PRIVATE_KEY" ParameterKey=CDNSigningPublicKey,ParameterValue="$PUBLIC_KEY" ParameterKey=DomainName,ParameterValue="$DOMAIN" ParameterKey=EmailAddress,ParameterValue="$FROM_EMAIL" ParameterKey=LetsEncryptOpts,ParameterValue="$LETSENCRYPT_OPTS" ParameterKey=ContactAddress,ParameterValue="$CONTACT_EMAIL"
 
+REGION=`aws configure get region`
+
 # wait for key pair to become available
 while : ; do
-  KEY_NAME=`aws ec2 describe-key-pairs --filters Name=key-name,Values=${APP_NAME}-${ENV_NAME}-key-pair --query KeyPairs[*].KeyPairId --output text`
+  KEY_NAME=`aws ec2 describe-key-pairs --filters Name=key-name,Values=${APP_NAME}-${ENV_NAME}-${REGION}-key-pair --query KeyPairs[*].KeyPairId --output text`
   if [ "$KEY_NAME" != "" ]; then
     break
   fi
@@ -36,5 +38,5 @@ while : ; do
 done
 
 # download into a pem file in ~/.ssh
-aws ssm get-parameter --name /ec2/keypair/${KEY_NAME} --with-decryption --query Parameter.Value --output text > ~/.ssh/${APP_NAME}-${ENV_NAME}-key-pair.pem
-chmod 600 ~/.ssh/${APP_NAME}-${ENV_NAME}-key-pair.pem
+aws ssm get-parameter --name /ec2/keypair/${KEY_NAME} --with-decryption --query Parameter.Value --output text > ~/.ssh/${APP_NAME}-${ENV_NAME}-${REGION}-key-pair.pem
+chmod 600 ~/.ssh/${APP_NAME}-${ENV_NAME}-${REGION}-key-pair.pem
