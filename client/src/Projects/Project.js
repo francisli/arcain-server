@@ -10,8 +10,8 @@ import './Project.scss';
 function Project() {
   const staticContext = useStaticContext();
   const { ProjectId } = useParams();
-  const [record, setRecord] = useState();
-  const [photos, setPhotos] = useState();
+  const [record, setRecord] = useState(staticContext?.record?.link === ProjectId ? staticContext?.record : undefined);
+  const [photos, setPhotos] = useState(staticContext?.record?.link === ProjectId ? staticContext?.photos : undefined);
   const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {

@@ -21,7 +21,9 @@ function AdminProjectsList() {
 
   async function reorder(newRecords) {
     setRecords(newRecords);
-    await Api.projects.reorder(newRecords.map((p, i) => ({ id: p.id, position: i })));
+    if (!staticContext?.env?.SSR) {
+      await Api.projects.reorder(newRecords.map((p, i) => ({ id: p.id, position: i })));
+    }
   }
 
   return (

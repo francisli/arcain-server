@@ -7,8 +7,10 @@ import { defaultValue, StaticContextProvider } from './StaticContext';
 import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');
+const staticContext = { ...defaultValue, ...window.STATIC_CONTEXT };
+staticContext.env.SSR = false;
 const app = (
-  <StaticContextProvider value={{ ...defaultValue, ...window.STATIC_CONTEXT }}>
+  <StaticContextProvider value={staticContext}>
     <HelmetProvider>
       <BrowserRouter>
         <App />

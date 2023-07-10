@@ -4,14 +4,11 @@ const _ = require('lodash');
 
 const models = require('../../models');
 const interceptors = require('../interceptors');
-const helpers = require('../helpers');
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const page = req.query.page || 1;
   const options = {
-    page,
     where: {
       isVisible: true,
     },
@@ -36,8 +33,7 @@ router.get('/', async (req, res) => {
       return;
     }
     options.where.ProjectId = project.id;
-    const { records, pages, total } = await models.Photo.paginate(options);
-    helpers.setPaginationHeaders(req, res, page, pages, total);
+    const records = await models.Photo.findAll(options);
     res.json(records.map((r) => r.toJSON()));
   } else {
     options.where.isVisibleOnHome = true;
