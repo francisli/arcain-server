@@ -21,3 +21,11 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.project__thumbnail {
+  aspect-ratio: 2 / 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}

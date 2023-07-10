@@ -12,6 +12,7 @@ function Project() {
   const { ProjectId } = useParams();
   const [record, setRecord] = useState();
   const [photos, setPhotos] = useState();
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {
     let isCancelled = false;
@@ -25,6 +26,13 @@ function Project() {
     });
     return () => (isCancelled = true);
   }, [ProjectId]);
+
+  function onSelect(newPhotoIndex) {
+    setPhotoIndex(newPhotoIndex);
+    if (window.scrollY !== 0) {
+      window.scrollTo({ top: 0, smooth: true });
+    }
+  }
 
   const baseURL = staticContext?.env?.BASE_URL ?? `${window.location.protocol}//${window.location.host}`;
   const imageURL = `${baseURL}${photos?.[0]?.fileURL}`;
@@ -42,7 +50,7 @@ function Project() {
         <div className="project__lightbox mb-5">
           <div className="container">
             <div className="project__carousel">
-              <Carousel interval={5000} pause="hover">
+              <Carousel activeIndex={photoIndex} onSelect={setPhotoIndex} interval={5000} pause="hover">
                 {photos?.map((p) => (
                   <Carousel.Item key={p.id}>
                     <div className="project__photo" style={{ backgroundImage: `url(${p.fileURL})` }}></div>
@@ -60,9 +68,9 @@ function Project() {
             </div>
             <div className="col-md-4 offset-md-1">
               <div className="row">
-                {photos?.map((p) => (
+                {photos?.map((p, i) => (
                   <div key={p.id} className="col-6 mb-4">
-                    <div className="project__photo" style={{ backgroundImage: `url(${p.thumbURL})` }}></div>
+                    <div onClick={() => onSelect(i)} className="project__thumbnail" style={{ backgroundImage: `url(${p.thumbURL})` }}></div>
                   </div>
                 ))}
               </div>
