@@ -16,6 +16,7 @@ module.exports = {
         rejectUnauthorized: false, // false === allow self-signed SSL certs
       },
     },
+    logging: false,
     use_env_variable: 'DATABASE_URL',
   },
 };
