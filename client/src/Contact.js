@@ -88,8 +88,23 @@ function Contact() {
       </Helmet>
       <main className="page container">
         <h1 className="display-6 text-center mt-3 mb-4">Contact</h1>
-        <div className="row justify-content-center">
-          <div className="col-md-10 col-lg-6">
+        <div className="row">
+          <div className="col-lg-3 mb-4 text-center">
+            <div className="card d-inline-block">
+              <div className="card-body text-start">
+                <span className="display-7">Jacob L. Green</span>
+                <br />
+                <small>
+                  Principal/Owner
+                  <br />
+                  <a href="mailto:jacob@arcaindesign.com">jacob@arcaindesign.com</a>
+                  <br />
+                  <a href="tel:4158183848">(415) 818-3848</a>
+                </small>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6">
             {!isSubmitted && (
               <>
                 {record && <p className="mb-3" dangerouslySetInnerHTML={{ __html: record.body }} />}
