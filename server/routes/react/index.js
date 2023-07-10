@@ -56,9 +56,29 @@ router.get('/*', async (req, res, next) => {
         return true;
       });
       if (isRedirected) return;
-      const record = await models.Page.findOne({ where: { link: urlPath.substring(1) } });
-      const staticContext = { ...defaultStaticContext, authContext: { user: req.user?.toJSON() ?? null }, record };
+      const staticContext = { ...defaultStaticContext, authContext: { user: req.user?.toJSON() ?? null } };
+      let record;
+      if (urlPath.startsWith('/portfolio/')) {
+        record = await models.Project.findOne({ where: { link: urlPath.substring(11) } });
+        if (record) {
+          const photos = await models.Photo.findAll({
+            where: {
+              ProjectId: record.id,
+              isVisible: true,
+            },
+            order: [
+              ['position', 'ASC'],
+              ['fileName', 'ASC'],
+            ],
+          });
+          staticContext.photos = photos.map((p) => p.toJSON());
+        }
+      } else {
+        record = await models.Page.findOne({ where: { link: urlPath.substring(1) } });
+      }
+      staticContext.record = record;
       staticContext.env.BASE_URL = `${req.protocol}://${req.headers.host}`;
+      staticContext.env.SSR = true;
       const helmetContext = {};
       const reactApp = ReactDOMServer.renderToString(
         React.createElement(
