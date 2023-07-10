@@ -48,6 +48,14 @@ function AdminProject() {
     await Api.photos.reorder(reorderedPhotos.map((p, i) => ({ id: p.id, position: i })));
   }
 
+  function onDeleted(photo) {
+    const index = photos?.indexOf(photo);
+    if (index >= 0) {
+      photos.splice(index, 1);
+      setPhotos([...photos]);
+    }
+  }
+
   return (
     <>
       <h1 className="display-6">Project</h1>
@@ -98,7 +106,7 @@ function AdminProject() {
                   <img className="img-fluid" src={p.thumbURL} alt={p.desc} />
                 </div>
                 <div className="col-8">
-                  <PhotoForm record={p} />
+                  <PhotoForm record={p} onDeleted={() => onDeleted(p)} />
                 </div>
               </div>
             </div>
