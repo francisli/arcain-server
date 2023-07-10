@@ -78,5 +78,10 @@ module.exports = (sequelize, DataTypes) => {
     record.handleAssetFile('file', options, Photo.generateThumbnails);
   });
 
+  Photo.afterDestroy(async (record, options) => {
+    record.file = null;
+    record.handleAssetFile('file', options);
+  });
+
   return Photo;
 };

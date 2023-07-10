@@ -81,10 +81,9 @@ function PhotoForm({ id, record, onChange, fileName, file, onCancel, onUpdated, 
   async function onDelete(event) {
     try {
       setLoading(true);
-      await Api.photos.delete(id);
-      if (onDeleted) {
-        onDeleted();
-      }
+      await Api.photos.delete(data?.id);
+      hideConfirmDeleteModal();
+      onDeleted?.();
     } catch (error) {
       setLoading(false);
       console.log(error);

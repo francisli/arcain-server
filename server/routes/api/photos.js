@@ -139,4 +139,30 @@ router.patch('/:id', interceptors.requireAdmin, async (req, res) => {
   }
 });
 
+router.delete('/:id', interceptors.requireAdmin, async (req, res) => {
+  try {
+    let record;
+    await models.sequelize.transaction(async (transaction) => {
+      record = await models.Photo.findByPk(req.params.id, { transaction });
+      if (record) {
+        await record.destroy({ transaction });
+      }
+    });
+    if (!record) {
+      res.status(StatusCodes.NOT_FOUND).end();
+    } else {
+      res.status(StatusCodes.NO_CONTENT).end();
+    }
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        status: StatusCodes.UNPROCESSABLE_ENTITY,
+        errors: error.errors,
+      });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
+    }
+  }
+});
+
 module.exports = router;
