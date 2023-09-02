@@ -23,10 +23,14 @@ function Home() {
     return () => (isCancelled = true);
   }, []);
 
+  const baseURL = staticContext?.env?.BASE_URL ?? `${window.location.protocol}//${window.location.host}`;
+
   return (
     <>
       <Helmet>
         <title>Home - {staticContext?.env?.REACT_APP_SITE_TITLE}</title>
+        <meta name="description" content="Arcain Design is a full service design firm specializing in all things residential." />
+        <link rel="canonical" href={`${baseURL}/`} />
       </Helmet>
       <div className="home" style={{ backgroundImage: photo ? `url(${photo.fileURL})` : 'none' }}></div>
     </>
