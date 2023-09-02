@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import Api from './Api';
 import FormGroup from './Components/FormGroup';
@@ -101,6 +103,14 @@ function Contact() {
                   <br />
                   <a href="tel:4158183848">(415) 818-3848</a>
                 </small>
+                <div className="fs-2">
+                  <a className="me-2" href="https://www.linkedin.com/company/arcain-design/" target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon icon={faLinkedin} title="Arcain Design on LinkedIn" />
+                  </a>
+                  <a href="https://instagram.com/arcaindesign/" target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon icon={faInstagram} title="Arcain Design (@arcaindesign) on Instagram" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
