@@ -1,5 +1,5 @@
 # Start with the latest Node.js LTS release
-FROM node:18.16.0-bullseye
+FROM node:20.18.0-bookworm
 
 # Support for multi-architecture builds
 ARG TARGETARCH
@@ -10,14 +10,16 @@ ENV APP_HOME=/opt/node/app
 # update path to include any installed node module executables
 RUN echo "export PATH=$APP_HOME/node_modules/.bin:~/minio-binaries:\$PATH\n" >> /root/.bashrc
 
-RUN wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" >> /etc/apt/sources.list.d/pgdg.list && \
+RUN apt-get update -y && \
+    apt-get install ca-certificates curl && \
+    apt install -y postgresql-common && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
     chmod a+r /etc/apt/keyrings/docker.gpg && \
     echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
     apt-get update -y && \
-    apt-get install -y docker-ce-cli docker-buildx-plugin jq less postgresql-client-14 zip && \
+    apt-get install -y docker-ce-cli docker-buildx-plugin jq less postgresql-client-16 zip && \
     apt-get clean && \
     curl https://dl.min.io/client/mc/release/linux-$TARGETARCH/mc --create-dirs -o ~/minio-binaries/mc && \
     chmod +x ~/minio-binaries/mc
