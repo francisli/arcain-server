@@ -16,7 +16,7 @@ function Footer() {
           </a>
         </div>
         <small>
-          Copyright &copy; {new Date().getFullYear()} Arcain Design LLC - <Link to="/admin">Admin</Link>
+          Copyright &copy; {new Date().getFullYear()} Arcain Design - <Link to="/admin">Admin</Link>
         </small>
       </div>
     </footer>
