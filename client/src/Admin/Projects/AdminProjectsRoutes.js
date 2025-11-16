@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import AdminProject from './AdminProject';
 import AdminProjectsList from './AdminProjectsList';
 import ProjectForm from './ProjectForm';
-import PhotoUploader from './PhotoUploader';
+import PhotoUploader from '../Photos/PhotoUploader';
 
 function AdminProjectsRoutes() {
   return (

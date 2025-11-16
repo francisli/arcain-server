@@ -12,7 +12,7 @@ function Home() {
   useEffect(() => {
     let isCancelled = false;
     Api.photos
-      .index()
+      .random()
       .then((response) => {
         if (isCancelled) return;
         if (response.data?.length) {

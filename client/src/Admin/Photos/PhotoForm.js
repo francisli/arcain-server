@@ -7,6 +7,7 @@ import FormGroup from '../../Components/FormGroup';
 function PhotoForm({ id, record, onChange, fileName, file, onCancel, onUpdated, onDeleted }) {
   const [data, setData] = useState(
     record ?? {
+      ProjectId: null,
       fileName,
       file,
       desc: '',
@@ -96,7 +97,9 @@ function PhotoForm({ id, record, onChange, fileName, file, onCancel, onUpdated, 
         <FormGroup label="Original File Name" name="fileName" record={data} plaintext={true} />
         <FormGroup label="Description" name="desc" record={data} onChange={onChangeInternal} type="textarea" />
         <FormGroup label="Is visible?" name="isVisible" record={data} onChange={onToggleInternal} type="checkbox" />
-        <FormGroup label="Is visible on homepage?" name="isVisibleOnHome" record={data} onChange={onToggleInternal} type="checkbox" />
+        {data.ProjectId && (
+          <FormGroup label="Is visible on homepage?" name="isVisibleOnHome" record={data} onChange={onToggleInternal} type="checkbox" />
+        )}
         <div className="d-flex justify-content-between">
           <div>
             <button className="btn btn-outline-primary" type="submit">
