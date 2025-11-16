@@ -90,6 +90,9 @@ const Api = {
     index({ ProjectId, showAll } = {}) {
       return instance.get(`/api/photos`, { params: { ProjectId, showAll } });
     },
+    random() {
+      return instance.get(`/api/photos/random`);
+    },
     create(data) {
       return instance.post(`/api/photos`, data);
     },

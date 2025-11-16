@@ -5,7 +5,7 @@ import { ReactSortable } from 'react-sortablejs';
 import FormGroup from '../../Components/FormGroup';
 import Api from '../../Api';
 
-import PhotoForm from './PhotoForm';
+import PhotoForm from '../Photos/PhotoForm';
 
 function AdminProject() {
   const { ProjectId } = useParams();

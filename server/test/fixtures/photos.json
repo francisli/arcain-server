@@ -18,5 +18,15 @@
       "isVisible": true,
       "isVisibleOnHome": true
     }
+  },
+  {
+    "model": "Photo",
+    "data": {
+      "id": "341f3b37-956b-4552-a68f-a47645224f3c",
+      "ProjectId": null,
+      "file": "27a7a82e-9d02-4385-9fb7-c73d09254455.png",
+      "isVisible": true,
+      "isVisibleOnHome": true
+    }
   }
 ]

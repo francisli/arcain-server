@@ -14,6 +14,7 @@ describe('/api/photos', () => {
       ['512x512.png', 'b45136f4-54e4-45cd-8851-efc9d733a573.png'],
       ['512x512.png', 'cdd8007d-dcaf-4163-b497-92d378679668.png'],
       ['512x512.png', 'fd2e73ba-0142-4cdc-a804-3b399bfc3e02.png'],
+      ['512x512.png', '27a7a82e-9d02-4385-9fb7-c73d09254455.png'],
     ]);
     await helper.loadFixtures(['users', 'projects', 'photos']);
     testSession = session(app);
@@ -25,20 +26,25 @@ describe('/api/photos', () => {
 
   context('unauthenticated', () => {
     describe('GET /', () => {
-      it('returns a random visible Photo for the homepage', async () => {
-        const response = await testSession.get('/api/photos').set('Accept', 'application/json').expect(StatusCodes.OK);
+      it('returns visible Photos for a Project', async () => {
+        const response = await testSession
+          .get('/api/photos?ProjectId=b7cf0682-8286-4144-9dd8-4b49849ee4e0')
+          .set('Accept', 'application/json')
+          .expect(StatusCodes.OK);
         assert.deepStrictEqual(response.body?.length, 1);
 
         const records = response.body;
         assert.deepStrictEqual(records[0].file, 'cdd8007d-dcaf-4163-b497-92d378679668.png');
       });
 
-      it('returns visible Photos for a Project', async () => {
-        /// request user list
-        const response = await testSession
-          .get('/api/photos?ProjectId=b7cf0682-8286-4144-9dd8-4b49849ee4e0')
-          .set('Accept', 'application/json')
-          .expect(StatusCodes.OK);
+      it('returns FORBIDDEN without a ProjectId', async () => {
+        await testSession.get('/api/photos').set('Accept', 'application/json').expect(StatusCodes.FORBIDDEN);
+      });
+    });
+
+    describe('GET /random', () => {
+      it('returns a random visible Photo for the homepage', async () => {
+        const response = await testSession.get('/api/photos/random').set('Accept', 'application/json').expect(StatusCodes.OK);
         assert.deepStrictEqual(response.body?.length, 1);
 
         const records = response.body;
@@ -74,8 +80,7 @@ describe('/api/photos', () => {
     });
 
     describe('GET /?showAll=true', () => {
-      it('returns all Photos', async () => {
-        /// request user list
+      it('returns all Photos for a Project', async () => {
         const response = await testSession
           .get('/api/photos?ProjectId=b7cf0682-8286-4144-9dd8-4b49849ee4e0&showAll=true')
           .set('Accept', 'application/json')
@@ -86,11 +91,18 @@ describe('/api/photos', () => {
         assert.deepStrictEqual(records[0].file, 'b45136f4-54e4-45cd-8851-efc9d733a573.png');
         assert.deepStrictEqual(records[1].file, 'cdd8007d-dcaf-4163-b497-92d378679668.png');
       });
+
+      it('returns all Photos not associated with a Project', async () => {
+        const response = await testSession.get('/api/photos?showAll=true').set('Accept', 'application/json').expect(StatusCodes.OK);
+        assert.deepStrictEqual(response.body?.length, 1);
+
+        const records = response.body;
+        assert.deepStrictEqual(records[0].file, '27a7a82e-9d02-4385-9fb7-c73d09254455.png');
+      });
     });
 
     describe('POST /', () => {
       it('creates a new Photo', async () => {
-        /// request user list
         const response = await testSession
           .post('/api/photos')
           .set('Accept', 'application/json')
@@ -137,7 +149,6 @@ describe('/api/photos', () => {
 
     describe('GET /:id', () => {
       it('returns a Project by id', async () => {
-        /// request user list
         const response = await testSession
           .get('/api/photos/ed2f158a-e44e-432d-971e-e5da1a2e33b4')
           .set('Accept', 'application/json')
@@ -153,7 +164,6 @@ describe('/api/photos', () => {
 
     describe('PATCH /:id', () => {
       it('updates a Photo by id', async () => {
-        /// request user list
         const response = await testSession
           .patch('/api/photos/ed2f158a-e44e-432d-971e-e5da1a2e33b4')
           .set('Accept', 'application/json')

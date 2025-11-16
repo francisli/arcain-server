@@ -35,13 +35,29 @@ router.get('/', async (req, res) => {
     options.where.ProjectId = project.id;
     const records = await models.Photo.findAll(options);
     res.json(records.map((r) => r.toJSON()));
-  } else {
-    options.where.isVisibleOnHome = true;
-    options.order = models.Sequelize.literal('RANDOM()');
-    options.limit = 1;
+  } else if (req.user?.isAdmin) {
+    options.where.ProjectId = null;
     const records = await models.Photo.findAll(options);
     res.json(records.map((r) => r.toJSON()));
+  } else {
+    res.status(StatusCodes.FORBIDDEN).end();
   }
+});
+
+router.get('/random', async (req, res) => {
+  const options = {
+    where: {
+      isVisible: true,
+      isVisibleOnHome: true,
+      ProjectId: {
+        [models.Sequelize.Op.ne]: null,
+      },
+    },
+    order: models.Sequelize.literal('RANDOM()'),
+    limit: 1,
+  };
+  const records = await models.Photo.findAll(options);
+  res.json(records.map((r) => r.toJSON()));
 });
 
 router.post('/', interceptors.requireAdmin, async (req, res) => {
