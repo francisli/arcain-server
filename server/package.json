@@ -1,6 +1,6 @@
 {
   "name": "arcain-server",
-  "version": "1.0.",
+  "version": "1.0.9",
   "private": true,
   "scripts": {
     "pp": "prettier --write --ignore-unknown .",
