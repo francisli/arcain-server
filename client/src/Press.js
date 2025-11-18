@@ -7,7 +7,7 @@ import { useStaticContext } from './StaticContext';
 
 function Press() {
   const staticContext = useStaticContext();
-  const [records, setRecords] = useState(staticContext?.records);
+  const [records, setRecords] = useState(staticContext?.links);
 
   useEffect(() => {
     let isCancelled = false;
