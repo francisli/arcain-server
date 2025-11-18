@@ -61,6 +61,23 @@ const Api = {
       return instance.delete(`/api/invites/${id}`);
     },
   },
+  links: {
+    index({ showAll } = {}) {
+      return instance.get(`/api/links`, { params: { showAll } });
+    },
+    create(data) {
+      return instance.post(`/api/links`, data);
+    },
+    get(id) {
+      return instance.get(`/api/links/${id}`);
+    },
+    update(id, data) {
+      return instance.put(`/api/links/${id}`, data);
+    },
+    delete(id) {
+      return instance.delete(`/api/links/${id}`);
+    },
+  },
   pages: {
     index() {
       return instance.get(`/api/pages`);

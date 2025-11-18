@@ -6,6 +6,9 @@ function AdminSidebar() {
       <NavLink to="projects" className="list-group-item">
         Projects
       </NavLink>
+      <NavLink to="press" className="list-group-item">
+        Press
+      </NavLink>
       <NavLink to="photos" className="list-group-item">
         Photos
       </NavLink>
