@@ -63,6 +63,11 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item text-center py-2 py-md-0">
+                <Link className="header__link" to="/press" onClick={hideNavbar}>
+                  Press
+                </Link>
+              </li>
+              <li className="nav-item text-center py-2 py-md-0">
                 <Link className={classNames('header__link', { 'me-md-0': !user })} to="/contact" onClick={hideNavbar}>
                   Contact
                 </Link>

@@ -1,0 +1,35 @@
+[
+  {
+    "model": "Link",
+    "data": {
+      "id": "6f83c9ae-af02-4edf-8ea9-b130bf7eec66",
+      "name": "Link 1",
+      "date": "2025-10-01",
+      "desc": "This is Link 1.",
+      "url": "http://link-1",
+      "isVisible": true
+    }
+  },
+  {
+    "model": "Link",
+    "data": {
+      "id": "2aa92780-ba59-4afc-b191-aefa507f8b7b",
+      "name": "Link 2",
+      "date": "2025-10-02",
+      "desc": "This is Link 2.",
+      "url": "http://link-2",
+      "isVisible": false
+    }
+  },
+  {
+    "model": "Link",
+    "data": {
+      "id": "10d4cf01-1251-4a0e-92fe-49568f4818e3",
+      "name": "Link 3",
+      "date": "2025-10-03",
+      "desc": "This is Link 3.",
+      "url": "http://link-3",
+      "isVisible": true
+    }
+  }
+]

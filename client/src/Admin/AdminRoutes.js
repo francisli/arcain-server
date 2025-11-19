@@ -5,6 +5,7 @@ import AdminUsersRoutes from './Users/AdminUsersRoutes';
 import AdminProjectsRoutes from './Projects/AdminProjectsRoutes';
 import AdminPagesRoutes from './Pages/AdminPagesRoutes';
 import AdminPhotosRoutes from './Photos/AdminPhotosRoutes';
+import AdminPressRoutes from './Press/AdminPressRoutes';
 
 function AdminRoutes() {
   return (
@@ -17,6 +18,7 @@ function AdminRoutes() {
           <Routes>
             <Route path="pages/*" element={<AdminPagesRoutes />} />
             <Route path="photos/*" element={<AdminPhotosRoutes />} />
+            <Route path="press/*" element={<AdminPressRoutes />} />
             <Route path="projects/*" element={<AdminProjectsRoutes />} />
             <Route path="users/*" element={<AdminUsersRoutes />} />
           </Routes>

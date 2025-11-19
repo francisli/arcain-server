@@ -10,6 +10,7 @@ import Footer from './Footer';
 import FrontDoor from './FrontDoor';
 import Home from './Home';
 import Contact from './Contact';
+import Press from './Press';
 import Page from './Page';
 import Login from './Login';
 import AdminRoutes from './Admin/AdminRoutes';
@@ -38,6 +39,7 @@ function App() {
                       <Routes>
                         <Route path="/home" element={<Home />} />
                         <Route path="/portfolio/*" element={<ProjectsRoutes />} />
+                        <Route path="/press" element={<Press />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/passwords/*" element={<PasswordsRoutes />} />

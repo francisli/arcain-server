@@ -73,6 +73,8 @@ router.get('/*', async (req, res, next) => {
           });
           staticContext.photos = photos.map((p) => p.toJSON());
         }
+      } else if (urlPath.startsWith('/press')) {
+        staticContext.links = await models.Link.findAll({ where: { isVisible: true }, order: [['date', 'DESC']] });
       } else {
         record = await models.Page.findOne({ where: { link: urlPath.substring(1) } });
       }
